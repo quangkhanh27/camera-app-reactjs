@@ -1,17 +1,50 @@
-.app{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.app {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-image: url(https://anhdepfree.com/wp-content/uploads/2018/12/White-Wallpaper-hinh-nen-trang-1.png); 
+	background-repeat:no-repeat;
+	background-attachment: fixed;
+	background-size: 103% 100%;
 }
 
 .app__container {
-  margin-top: 10px;
-  width: 500px;
-  height: 500px;
-  border: 1px solid black;
+	margin-top: 10px;
+	width: 500px;
+	height: 500px;
+	border: 1px solid #000;
+
 }
 
-.app__input{
-  margin-top: 10px;
+.app__img1 {
+	margin: 10px;
+	width: 400px;
+	height: 400px;
+	border: 1px solid #000;
+  float: left;
+}
+
+.app__input {
+	margin-top: 10px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 1250px;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.inputFile{
+	margin-left: 50px;
 }

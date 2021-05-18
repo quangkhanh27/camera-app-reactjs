@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import axios from "axios";
 
 class App extends React.Component {
   state = {
@@ -30,7 +31,12 @@ class App extends React.Component {
     }
 
     navigator.mediaDevices
-      .getUserMedia({ video: true })
+      .getUserMedia({
+        video: {
+          width: 400,
+          height: 400,
+        },
+      })
       .then((stream) => {
         this.player.srcObject = stream;
       })
@@ -53,15 +59,16 @@ class App extends React.Component {
     let counter = this.state.counter + 1;
     this.setState({ imageDataURL: canvas.toDataURL(), counter });
 
-    const a = document.createElement("a"); //Create <a>
-    a.href = canvas.toDataURL(); //Image Base64 Goes here
-    a.download = `${counter}.png`; //File name Here
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    let formData = new FormData();
+    formData.append("File", canvas.toDataURL().split(",")[1]);
 
-    // window.location.href =
-    //   "data:application/octet-stream;base64," + canvas.toDataURL.split(",")[1];
+    let url = 'http://localhost:5000/'
+
+    axios.post(url, formData).then((res) => {
+      console.log("ok");
+    }).catch((res) => {
+      console.log("err");
+    })
   };
 
   render() {
@@ -77,10 +84,88 @@ class App extends React.Component {
     );
 
     return (
-      <div className="App">
-        {playerORImage}
-        <button onClick={this.initializeMedia}>Take Photo</button>
-        <button onClick={this.capturePicture}>Capture</button>
+      <div className="app">
+        <div className="app__container">
+          {playerORImage}
+        </div>
+        <div className="app__input">
+          <form>
+            <button onClick={this.initializeMedia}>Take Photo</button>
+            <button onClick={this.capturePicture}>Capture</button>
+            <input className="inputFile" type="file" accept=".png, .jpeg" />
+          </form>
+        </div>
+        <div className="app__img">
+          <div className="app__img1">
+            {/* {playerORImage} */}
+          </div>
+          <div className="app__img1">
+            {/* {playerORImage} */}
+          </div>
+          <div className="app__img1">
+            {/* {playerORImage} */}
+          </div>
+        </div>
+        <div>
+          <table>
+            <tr>
+              <th>File</th>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Phone</th>
+              <th>Date</th>
+              <th>Price</th>
+            </tr>
+            <tr>
+              <td>Alfreds Futterkiste</td>
+              <td>Maria Anders</td>
+              <td>Germany</td>
+              <td>Maria Anders</td>
+              <td>Germany</td>
+              <td>Germany</td>
+            </tr>
+            <tr>
+              <td>Centro comercial Moctezuma</td>
+              <td>Francisco Chang</td>
+              <td>Mexico</td>
+              <td>Francisco Chang</td>
+              <td>Mexico</td>
+              <td>Mexico</td>
+            </tr>
+            <tr>
+              <td>Ernst Handel</td>
+              <td>Roland Mendel</td>
+              <td>Austria</td>
+              <td>Roland Mendel</td>
+              <td>Austria</td>
+              <td>Austria</td>
+            </tr>
+            <tr>
+              <td>Island Trading</td>
+              <td>Helen Bennett</td>
+              <td>UK</td>
+              <td>Helen Bennett</td>
+              <td>UK</td>
+              <td>UK</td>
+            </tr>
+            <tr>
+              <td>Laughing Bacchus Winecellars</td>
+              <td>Yoshi Tannamuri</td>
+              <td>Canada</td>
+              <td>Yoshi Tannamuri</td>
+              <td>Canada</td>
+              <td>Canada</td>
+            </tr>
+            <tr>
+              <td>Magazzini Alimentari Riuniti</td>
+              <td>Giovanni Rovelli</td>
+              <td>Italy</td>
+              <td>Giovanni Rovelli</td>
+              <td>Italy</td>
+              <td>Italy</td>
+            </tr>
+          </table>
+        </div>
       </div>
     );
   }
